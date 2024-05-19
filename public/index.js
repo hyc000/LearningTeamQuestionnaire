@@ -122,17 +122,16 @@ new Vue({
         this.talents.push(this.currentTalent);
         this.currentTalent = '';
       }
-    },       
-    
+    },
+
 
     submitForm() {
       // 送出前驗證 ()
-      if(!this.selectedLearningFor || !this.selectedPreferTo || !this.selectedGivingTime || !this.selectedLearningGoal || 
-        !this.selectedPreferLearningWay || !this.name)
-        {
-          alert("紅色＊為必填欄位! 請再檢查")
-          return false;
-        }
+      if (!this.selectedLearningFor || !this.selectedPreferTo || !this.selectedGivingTime || !this.selectedLearningGoal ||
+        !this.selectedPreferLearningWay || !this.name) {
+        alert("紅色＊為必填欄位! 請再檢查")
+        return false;
+      }
 
       const formData = {
         selectedLearningFor: this.selectedLearningFor,
@@ -279,12 +278,12 @@ new Vue({
       <div>
         <span>自我介紹：</span>
         <br>
-        <textarea cols="50" rows="10" v-model="intro" placeholder="看有沒有想要介紹"></textarea>
+        <textarea v-model="intro" placeholder="看有沒有想要介紹"></textarea>
       </div>
       <div>
         <span>其他想說的話：</span>
         <br>
-        <textarea cols="50" rows="10" v-model="comments" placeholder="對於團隊期許、自我期許、還是對於這個頁面的建議，萬分感謝~"></textarea>
+        <textarea v-model="comments" placeholder="對於團隊期許、自我期許、還是對於這個頁面的建議，萬分感謝~"></textarea>
       </div>
       <div>
         <button @click="submitForm">提交</button>

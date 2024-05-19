@@ -20,21 +20,40 @@ body {
   justify-content: center;
   margin: 2rem auto;
   margin: 2rem 0rem;
-  background-color: #FFFFFF;
-  box-shadow: 0 2px 1px -1px rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 1px 3px 0 rgba(0, 0, 0, .12);
+  background-color: #ffffff;
+  box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
+    0 1px 3px 0 rgba(0, 0, 0, 0.12);
   border-radius: 2rem;
   padding: 0rem 3rem;
 }
 
 @media (max-width: 600px) {
   .centered-section {
-    padding: 0rem 3rem;
-    margin: 5rem;
+    padding: 1em 1rem;
+    margin: 2rem;
+    max-width: 300px;
+  }
+}
+
+textarea {
+  width: 50ch;
+  height: 10ch;
+}
+
+@media (max-width: 600px) {
+  textarea {
+    width: 30ch;
   }
 }
 
 .content {
   margin-bottom: 40px;
+}
+
+@media (max-width: 600px) {
+  .content {
+    max-width: 90%;
+  }
 }
 
 #app {
@@ -45,10 +64,9 @@ body {
   position: relative;
 }
 
-
 .required::after {
   position: absolute;
-  content: '*';
+  content: "*";
   top: 0rem;
   left: -0.5rem;
   color: #f84b4b;
