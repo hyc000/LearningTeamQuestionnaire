@@ -1,10 +1,35 @@
-- 5/19 連結：https://learning-team-questionnaire.vercel.app/
+# 目錄
+- [目錄](#目錄)
+  - [連結](#連結)
+  - [Screenshot(2024/05/19)](#screenshot20240519)
+    - [Desktop](#desktop)
+    - [Mobile](#mobile)
+  - [專案簡介](#專案簡介)
+  - [使用技術](#使用技術)
+  - [專案目的](#專案目的)
+  - [備註](#備註)
+  - [專案參與者：(僅以字首排序)](#專案參與者僅以字首排序)
+  - [致謝](#致謝)
 
-- 專案簡介：
+
+
+## 連結
+https://learning-team-questionnaire.vercel.app/
+
+## Screenshot(2024/05/19)
+
+### Desktop 
+ <img src="readme_image/Preview_desk.png" width="80%" style="display: block; margin: 0 auto"  />
+
+### Mobile
+ <img src="readme_image/Preview_mobile.png" width="30%" style="display: block; margin: 0 auto"  />
+
+
+## 專案簡介
 
    提供簡易網頁表單，Vue繫結、API動態載入欄位資料，並於送出前使用Vue驗證資料必填欄位，送出後存入MongoDB。
 
-- 使用技術：
+## 使用技術
 
    1. 前端框架：Vue
 
@@ -17,15 +42,15 @@
    5. 部署平台：Vercel
 
 
-- 專案目的：
+## 專案目的
 
    因參與「產業任才培訓計畫-JavaScript+Node.js前後端應用開發班」，同學提議組成課後共同學習計畫，本專案為協助主辦人收集參與者資料與計畫內容期許，因此使用課堂所學建立表單。
 
-- 備註：
+## 備註
 
    因原先上傳GitHub、部署於Vercel時，誤將資料庫連接字串上傳，因此本專案為重新上傳版本，並無先前版控紀錄。
 
-- 專案參與者：(僅以字首排序)
+## 專案參與者：(僅以字首排序)
 
    [craigswy](https://github.com/craigswy) - 前端事件處理
 
@@ -39,7 +64,7 @@
 
    [lin274606](https://github.com/lin274606) - 問題協助
 
-- 致謝：
+## 致謝
 
    感謝本表單之使用者，謝謝你們的使用體驗及建議。對於在非工作專案上，首次部署的專案，還有許多須改進之處，你們的所有回饋會是我們將來規畫時的重要參考。
 
