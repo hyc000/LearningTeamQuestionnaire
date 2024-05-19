@@ -1,0 +1,28 @@
+[{
+  "_id": {
+    "$oid": "6645fec63152fdeb4ef86474"
+  },
+  "LearningWay": "讀書會",
+  "Description": "共同學習語言或工具，一起做作業練習"
+},
+{
+  "_id": {
+    "$oid": "6645fec63152fdeb4ef86475"
+  },
+  "LearningWay": "分享會",
+  "Description": "個人專長分享教學"
+},
+{
+  "_id": {
+    "$oid": "6645fec63152fdeb4ef86476"
+  },
+  "LearningWay": "同主題小專案",
+  "Description": "使用相同主題、工具，於專案期間、完成專案後，共同討論問題及技術"
+},
+{
+  "_id": {
+    "$oid": "6645fec63152fdeb4ef86477"
+  },
+  "LearningWay": "合作專案",
+  "Description": "以較大的專案規模，分工進行專案製作"
+}]

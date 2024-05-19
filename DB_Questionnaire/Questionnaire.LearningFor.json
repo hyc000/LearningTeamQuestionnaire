@@ -1,0 +1,18 @@
+[{
+  "_id": {
+    "$oid": "6645f9f33152fdeb4ef86459"
+  },
+  "LearningFor": "工作需要"
+},
+{
+  "_id": {
+    "$oid": "6645fa183152fdeb4ef8645a"
+  },
+  "LearningFor": "興趣使然"
+},
+{
+  "_id": {
+    "$oid": "6645fa313152fdeb4ef8645b"
+  },
+  "LearningFor": "轉職協槓"
+}]

@@ -1,0 +1,18 @@
+[{
+  "_id": {
+    "$oid": "6645fc8c3152fdeb4ef8646f"
+  },
+  "LearningGoal": "熟悉程式語言或工具"
+},
+{
+  "_id": {
+    "$oid": "6645fc8c3152fdeb4ef86470"
+  },
+  "LearningGoal": "完成很多小項目實作"
+},
+{
+  "_id": {
+    "$oid": "6645fc8c3152fdeb4ef86471"
+  },
+  "LearningGoal": "一起學習交流"
+}]

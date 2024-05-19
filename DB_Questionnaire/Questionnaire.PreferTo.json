@@ -1,0 +1,36 @@
+[{
+  "_id": {
+    "$oid": "6645fb6e3152fdeb4ef8645e"
+  },
+  "PreferTo": "視覺效果"
+},
+{
+  "_id": {
+    "$oid": "6645fb6e3152fdeb4ef8645f"
+  },
+  "PreferTo": "前端設計"
+},
+{
+  "_id": {
+    "$oid": "6645fb6e3152fdeb4ef86460"
+  },
+  "PreferTo": "邏輯發想"
+},
+{
+  "_id": {
+    "$oid": "6645fb6e3152fdeb4ef86461"
+  },
+  "PreferTo": "後端語法"
+},
+{
+  "_id": {
+    "$oid": "6645fb6e3152fdeb4ef86462"
+  },
+  "PreferTo": "工具專研"
+},
+{
+  "_id": {
+    "$oid": "6645fb6e3152fdeb4ef86463"
+  },
+  "PreferTo": "皆可"
+}]

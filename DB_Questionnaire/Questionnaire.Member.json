@@ -1,0 +1,41 @@
+[{
+  "_id": {
+    "$oid": "66462b00d2a09035db515305"
+  },
+  "name": "洪2",
+  "email": "email2",
+  "github": "github2",
+  "languages": [
+    "C#"
+  ],
+  "tools": [
+    "A"
+  ],
+  "skills": [
+    "S"
+  ],
+  "talents": [
+    "G"
+  ],
+  "intro": "自我解紹",
+  "comments": "想說的話",
+  "selectedLearningFor": [
+    "工作需要",
+    "轉職協槓"
+  ],
+  "selectedPreferTo": [
+    "邏輯發想",
+    "後端語法"
+  ],
+  "selectedGivingTime": "每周6-10小時",
+  "selectedLearningGoal": [
+    "熟悉程式語言或工具",
+    "一起學習交流"
+  ],
+  "selectedPreferLearningWay": [
+    "讀書會",
+    "合作專案",
+    "同主題小專案"
+  ],
+  "__v": 0
+}]

@@ -1,0 +1,24 @@
+[{
+  "_id": {
+    "$oid": "6645fc2b3152fdeb4ef86469"
+  },
+  "GivingTime": "每周5小時"
+},
+{
+  "_id": {
+    "$oid": "6645fc2b3152fdeb4ef8646a"
+  },
+  "GivingTime": "每周6-10小時"
+},
+{
+  "_id": {
+    "$oid": "6645fc2b3152fdeb4ef8646b"
+  },
+  "GivingTime": "每周10小時以上"
+},
+{
+  "_id": {
+    "$oid": "6645fc2b3152fdeb4ef8646c"
+  },
+  "GivingTime": "彈性調整"
+}]
