@@ -16,6 +16,133 @@
 
             <!-- Vue 會在這裡進行掛載 -->
             <div id="app">
+                <div v-if="loading">Loading...</div>
+                <div v-else>
+                    <!-- 這裡是你的主要內容 -->
+                    <div>
+                        <h2>團隊共識</h2>
+                        <ol>
+                            <li>
+                                <div>
+                                    <span>學習需求：</span>
+                                    <span v-for="item in learningForList">
+                                        <input type="checkbox" :key="item._id" :value="item.LearningFor"
+                                            v-model="selectedLearningFor">
+                                        <span>{{ item.LearningFor }}</span>
+                                    </span>
+                                </div>
+                            </li>
+                            <li>
+                                <div>
+                                    <span>偏好種類：</span>
+                                    <span v-for="item in preferToList">
+                                        <input type="checkbox" :key="item._id" :value="item.PreferTo"
+                                            v-model="selectedPreferTo">
+                                        <span>{{ item.PreferTo }}</span>
+                                    </span>
+                                </div>
+                            </li>
+                            <li>
+                                <div>
+                                    <span>可運用時間：</span>
+                                    <select v-model="selectedGivingTime">
+                                        <option value="" selected disabled>請選擇</option>
+                                        <option v-for="item in givingTimeList" :key="item._id" :value="item.GivingTime">
+                                            {{ item.GivingTime }}
+                                        </option>
+                                    </select>
+                                </div>
+                            </li>
+                            <li>
+                                <div>
+                                    <span>期許目標：</span>
+                                    <span v-for="item in learningGoalList">
+                                        <input type="checkbox" :key="item._id" :value="item.LearningGoal"
+                                            v-model="selectedLearningGoal">
+                                        <span>{{ item.LearningGoal }}</span>
+                                    </span>
+                                </div>
+                            </li>
+                            <li>
+                                <div>
+                                    <span>偏好學習方式：</span>
+                                    <br>
+                                    <span v-for="item in preferLearningWayList" :key="item._id">
+                                        <input type="checkbox" :value="item.LearningWay"
+                                            v-model="selectedPreferLearningWay">
+                                        <span>{{ item.LearningWay }}：{{ item.Description }}</span><br>
+                                    </span>
+                                </div>
+                            </li>
+                        </ol>
+                        <h2>個人資料</h2>
+                        <div>
+                            <span class="required" style="left:-5px;">名字：</span>
+                            <input type="text" v-model="name">
+                        </div>
+                        <div>
+                            <span>電子郵件：</span>
+                            <input type="text" v-model="email">
+                        </div>
+                        <div>
+                            <span>Github連結：</span>
+                            <input type="text" v-model="github">
+                        </div>
+                        <div>
+                            <span>程式語言：</span>
+                            <input type="text" v-model="currentLanguage">
+                            <input type="button" value="增加!" @click="addLanguage">
+                            <div>
+                                <ul>
+                                    <li v-for="lang in languages" :key="lang">{{ lang }}</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div>
+                            <span>擅長工具：</span>
+                            <input type="text" v-model="currentTool">
+                            <input type="button" value="增加!" @click="addTool">
+                            <div>
+                                <ul>
+                                    <li v-for="tool in tools" :key="tool">{{ tool }}</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div>
+                            <span>專業技能：</span>
+                            <input type="text" v-model="currentSkill">
+                            <input type="button" value="增加!" @click="addSkill">
+                            <div>
+                                <ul>
+                                    <li v-for="skill in skills" :key="skill">{{ skill }}</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div>
+                            <span>才藝：</span>
+                            <input type="text" v-model="currentTalent">
+                            <input type="button" value="增加!" @click="addTalent">
+                            <div>
+                                <ul>
+                                    <li v-for="talent in talents" :key="talent">{{ talent }}</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div>
+                            <span>自我介紹：</span>
+                            <br>
+                            <textarea v-model="intro" placeholder="看有沒有想要介紹"></textarea>
+                        </div>
+                        <div>
+                            <span>其他想說的話：</span>
+                            <br>
+                            <textarea v-model="comments" placeholder="對於團隊期許、自我期許、還是對於這個頁面的建議，萬分感謝~"></textarea>
+                        </div>
+                        <div>
+                            <button @click="submitForm">提交</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>

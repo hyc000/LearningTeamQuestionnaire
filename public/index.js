@@ -2,6 +2,7 @@
 new Vue({
   el: '#app',
   data: {
+    loading: true,  // 初始化 loading 狀態
     learningForList: [],
     preferToList: [],
     givingTimeList: [],
@@ -27,11 +28,7 @@ new Vue({
     selectedPreferLearningWay: []
   },
   created() {
-    this.fetchLearningFor();
-    this.fetchPreferTo();
-    this.fetchgivingTime();
-    this.fetchLearningGoal();
-    this.fetchpreferLearningWay()
+    this.fetchData();
   },
 
   mounted() {
@@ -39,67 +36,73 @@ new Vue({
   },
 
   methods: {
-    fetchLearningFor() {
-      fetch('https://prj-questionnaire.vercel.app/api/learning-for')
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Network response was not ok ' + response.statusText);
-          }
-          return response.json();
-        })
-        .then(data => {
-          this.learningForList = data;
-        })
-        .catch(error => {
-          console.error('Error fetching prefer learning way data:', error);
-          // 捕獲並記錄響應的文本內容
-          fetch('https://prj-questionnaire.vercel.app/api/prefer-learning-way')
-            .then(response => response.text())
-            .then(text => {
-              console.error('Response text:', text);
-            });
-        });
+    async fetchData() {
+      try {
+        await Promise.all([
+          this.fetchLearningFor(),
+          this.fetchPreferTo(),
+          this.fetchgivingTime(),
+          this.fetchLearningGoal(),
+          this.fetchpreferLearningWay()
+        ]);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
+        this.loading = false;  // 資料載入完成，更新 loading 狀態
+      }
     },
-    fetchPreferTo() {
-      fetch('https://prj-questionnaire.vercel.app/api/prefer-to')
-        .then(response => response.json())
-        .then(data => {
-          this.preferToList = data;
-        })
-        .catch(error => {
-          console.error('Error fetching prefer to data:', error);
-        });
+    async fetchLearningFor() {
+      try {
+        const response = await fetch('api/learning-for');
+        if (!response.ok) {
+          throw new Error('Network response was not ok ' + response.statusText);
+        }
+        const data = await response.json();
+        this.learningForList = data;
+      } catch (error) {
+        console.error('Error fetching prefer learning way data:', error);
+        const errorResponse = await fetch('api/prefer-learning-way');
+        const text = await errorResponse.text();
+        console.error('Response text:', text);
+      }
     },
-    fetchgivingTime() {
-      fetch('https://prj-questionnaire.vercel.app/api/giving-time')
-        .then(response => response.json())
-        .then(data => {
-          this.givingTimeList = data;
-        })
-        .catch(error => {
-          console.error('Error fetching prefer to data:', error);
-        });
+    async fetchPreferTo() {
+      try {
+        const response = await fetch('api/prefer-to');
+        const data = await response.json();
+        this.preferToList = data;
+      } catch (error) {
+        console.error('Error fetching prefer to data:', error);
+      }
     },
-    fetchLearningGoal() {
-      fetch('https://prj-questionnaire.vercel.app/api/learning-goal')
-        .then(response => response.json())
-        .then(data => {
-          this.learningGoalList = data;
-        })
-        .catch(error => {
-          console.error('Error fetching prefer to data:', error);
-        });
+    async fetchgivingTime() {
+      try {
+        const response = await fetch('api/giving-time');
+        const data = await response.json();
+        this.givingTimeList = data;
+      } catch (error) {
+        console.error('Error fetching giving time data:', error);
+      }
     },
-    fetchpreferLearningWay() {
-      fetch('https://prj-questionnaire.vercel.app/api/perfer-learning-way')
-        .then(response => response.json())
-        .then(data => {
-          this.preferLearningWayList = data;
-        })
-        .catch(error => {
-          console.error('Error fetching prefer to data:', error);
-        });
-    }, addLanguage() {
+    async fetchLearningGoal() {
+      try {
+        const response = await fetch('api/learning-goal');
+        const data = await response.json();
+        this.learningGoalList = data;
+      } catch (error) {
+        console.error('Error fetching learning goal data:', error);
+      }
+    },
+    async fetchpreferLearningWay() {
+      try {
+        const response = await fetch('api/perfer-learning-way');
+        const data = await response.json();
+        this.preferLearningWayList = data;
+      } catch (error) {
+        console.error('Error fetching prefer learning way data:', error);
+      }
+    },
+    addLanguage() {
       if (this.currentLanguage) {
         this.languages.push(this.currentLanguage);
         this.currentLanguage = '';
@@ -150,7 +153,7 @@ new Vue({
         comments: this.comments
       };
 
-      fetch('https://prj-questionnaire.vercel.app/api/form', {
+      fetch('api/form', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -169,125 +172,125 @@ new Vue({
         });
     }
   },
-  template: `
-    <div>
-      <h2>團隊共識</h2>
-      <ol>
-        <li>
-          <div>
-            <span>學習需求：</span>
-            <span v-for="item in learningForList">
-                <input type="checkbox"  :key="item._id" :value="item.LearningFor" v-model="selectedLearningFor">
-                <span>{{ item.LearningFor }}</span>
-            </span>
-          </div>
-        </li>
-        <li>
-          <div>
-            <span>偏好種類：</span>
-            <span v-for="item in preferToList">
-                <input type="checkbox"  :key="item._id" :value="item.PreferTo" v-model="selectedPreferTo">
-                <span>{{ item.PreferTo }}</span>
-            </span>
-          </div>
-        </li>
-        <li>
-          <div>
-            <span>可運用時間：</span>
-            <select v-model="selectedGivingTime">
-              <option value="" selected disabled>請選擇</option>
-              <option v-for="item in givingTimeList" :key="item._id" :value="item.GivingTime">
-                {{ item.GivingTime }}
-              </option>
-            </select>
-          </div>
-        </li>
-        <li>
-          <div>
-            <span>期許目標：</span>
-            <span v-for="item in learningGoalList">
-                <input type="checkbox"  :key="item._id" :value="item.LearningGoal" v-model="selectedLearningGoal">
-                <span>{{ item.LearningGoal }}</span>
-            </span>
-          </div>
-        </li>
-        <li>
-        <div>
-          <span>偏好學習方式：</span>
-          <br>
-          <span v-for="item in preferLearningWayList" :key="item._id">
-            <input type="checkbox" :value="item.LearningWay" v-model="selectedPreferLearningWay">
-            <span>{{ item.LearningWay }}：{{ item.Description }}</span><br>
-          </span>
-        </div>
-      </li>
-      </ol>
-      <h2>個人資料</h2>
-      <div>
-        <span class="required" style="left:-5px;">名字：</span>
-        <input type="text" v-model="name">
-      </div>
-      <div>
-        <span>電子郵件：</span>
-        <input type="text" v-model="email">
-      </div>
-      <div>
-        <span>Github連結：</span>
-        <input type="text" v-model="github">
-      </div>
-      <div>
-        <span>程式語言：</span>
-        <input type="text" v-model="currentLanguage">
-        <input type="button" value="增加!" @click="addLanguage">
-        <div>
-          <ul>
-            <li v-for="lang in languages" :key="lang">{{ lang }}</li>
-          </ul>
-        </div>
-      </div>
-      <div>
-        <span>擅長工具：</span>
-        <input type="text" v-model="currentTool">
-        <input type="button" value="增加!" @click="addTool">
-        <div>
-          <ul>
-            <li v-for="tool in tools" :key="tool">{{ tool }}</li>
-          </ul>
-        </div>
-      </div>
-      <div>
-        <span>專業技能：</span>
-        <input type="text" v-model="currentSkill">
-        <input type="button" value="增加!" @click="addSkill">
-        <div>
-          <ul>
-            <li v-for="skill in skills" :key="skill">{{ skill }}</li>
-          </ul>
-        </div>
-      </div>
-      <div>
-        <span>才藝：</span>
-        <input type="text" v-model="currentTalent">
-        <input type="button" value="增加!" @click="addTalent">
-        <div>
-          <ul>
-            <li v-for="talent in talents" :key="talent">{{ talent }}</li>
-          </ul>
-        </div>
-      </div>
-      <div>
-        <span>自我介紹：</span>
-        <br>
-        <textarea v-model="intro" placeholder="看有沒有想要介紹"></textarea>
-      </div>
-      <div>
-        <span>其他想說的話：</span>
-        <br>
-        <textarea v-model="comments" placeholder="對於團隊期許、自我期許、還是對於這個頁面的建議，萬分感謝~"></textarea>
-      </div>
-      <div>
-        <button @click="submitForm">提交</button>
-      </div>
-    </div>
-  `
+  // template: `
+  //   <div>
+  //     <h2>團隊共識</h2>
+  //     <ol>
+  //       <li>
+  //         <div>
+  //           <span>學習需求：</span>
+  //           <span v-for="item in learningForList">
+  //               <input type="checkbox"  :key="item._id" :value="item.LearningFor" v-model="selectedLearningFor">
+  //               <span>{{ item.LearningFor }}</span>
+  //           </span>
+  //         </div>
+  //       </li>
+  //       <li>
+  //         <div>
+  //           <span>偏好種類：</span>
+  //           <span v-for="item in preferToList">
+  //               <input type="checkbox"  :key="item._id" :value="item.PreferTo" v-model="selectedPreferTo">
+  //               <span>{{ item.PreferTo }}</span>
+  //           </span>
+  //         </div>
+  //       </li>
+  //       <li>
+  //         <div>
+  //           <span>可運用時間：</span>
+  //           <select v-model="selectedGivingTime">
+  //             <option value="" selected disabled>請選擇</option>
+  //             <option v-for="item in givingTimeList" :key="item._id" :value="item.GivingTime">
+  //               {{ item.GivingTime }}
+  //             </option>
+  //           </select>
+  //         </div>
+  //       </li>
+  //       <li>
+  //         <div>
+  //           <span>期許目標：</span>
+  //           <span v-for="item in learningGoalList">
+  //               <input type="checkbox"  :key="item._id" :value="item.LearningGoal" v-model="selectedLearningGoal">
+  //               <span>{{ item.LearningGoal }}</span>
+  //           </span>
+  //         </div>
+  //       </li>
+  //       <li>
+  //       <div>
+  //         <span>偏好學習方式：</span>
+  //         <br>
+  //         <span v-for="item in preferLearningWayList" :key="item._id">
+  //           <input type="checkbox" :value="item.LearningWay" v-model="selectedPreferLearningWay">
+  //           <span>{{ item.LearningWay }}：{{ item.Description }}</span><br>
+  //         </span>
+  //       </div>
+  //     </li>
+  //     </ol>
+  //     <h2>個人資料</h2>
+  //     <div>
+  //       <span class="required" style="left:-5px;">名字：</span>
+  //       <input type="text" v-model="name">
+  //     </div>
+  //     <div>
+  //       <span>電子郵件：</span>
+  //       <input type="text" v-model="email">
+  //     </div>
+  //     <div>
+  //       <span>Github連結：</span>
+  //       <input type="text" v-model="github">
+  //     </div>
+  //     <div>
+  //       <span>程式語言：</span>
+  //       <input type="text" v-model="currentLanguage">
+  //       <input type="button" value="增加!" @click="addLanguage">
+  //       <div>
+  //         <ul>
+  //           <li v-for="lang in languages" :key="lang">{{ lang }}</li>
+  //         </ul>
+  //       </div>
+  //     </div>
+  //     <div>
+  //       <span>擅長工具：</span>
+  //       <input type="text" v-model="currentTool">
+  //       <input type="button" value="增加!" @click="addTool">
+  //       <div>
+  //         <ul>
+  //           <li v-for="tool in tools" :key="tool">{{ tool }}</li>
+  //         </ul>
+  //       </div>
+  //     </div>
+  //     <div>
+  //       <span>專業技能：</span>
+  //       <input type="text" v-model="currentSkill">
+  //       <input type="button" value="增加!" @click="addSkill">
+  //       <div>
+  //         <ul>
+  //           <li v-for="skill in skills" :key="skill">{{ skill }}</li>
+  //         </ul>
+  //       </div>
+  //     </div>
+  //     <div>
+  //       <span>才藝：</span>
+  //       <input type="text" v-model="currentTalent">
+  //       <input type="button" value="增加!" @click="addTalent">
+  //       <div>
+  //         <ul>
+  //           <li v-for="talent in talents" :key="talent">{{ talent }}</li>
+  //         </ul>
+  //       </div>
+  //     </div>
+  //     <div>
+  //       <span>自我介紹：</span>
+  //       <br>
+  //       <textarea v-model="intro" placeholder="看有沒有想要介紹"></textarea>
+  //     </div>
+  //     <div>
+  //       <span>其他想說的話：</span>
+  //       <br>
+  //       <textarea v-model="comments" placeholder="對於團隊期許、自我期許、還是對於這個頁面的建議，萬分感謝~"></textarea>
+  //     </div>
+  //     <div>
+  //       <button @click="submitForm">提交</button>
+  //     </div>
+  //   </div>
+  // `
 });

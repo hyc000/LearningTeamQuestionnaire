@@ -13,8 +13,7 @@ mongoose.connect(process.env.MongoDBConnectionString);
 // 配置 CORS 允許多個來源
 const allowedOrigins = ['http://localhost:3000',
     'https://prj-questionnaire.vercel.app',
-    'https://prj-questionnaire-front-end.vercel.app',
-    '*'];
+    'https://prj-questionnaire-front-end.vercel.app'];
 
 app.use(cors({
     origin: function (origin, callback) {
@@ -91,7 +90,7 @@ app.get('/api/learning-for', async (req, res) => {
         res.status(500).send(error);
     }
 });
-app.get('/prefer-to', async (req, res) => {
+app.get('/api/prefer-to', async (req, res) => {
     try {
         const data = await PreferTo.find({});
         res.json(data);
@@ -99,7 +98,7 @@ app.get('/prefer-to', async (req, res) => {
         res.status(500).send(error);
     }
 });
-app.get('/giving-time', async (req, res) => {
+app.get('/api/giving-time', async (req, res) => {
     try {
         const data = await GivingTime.find({});
         res.json(data);
@@ -107,7 +106,7 @@ app.get('/giving-time', async (req, res) => {
         res.status(500).send(error);
     }
 });
-app.get('/learning-goal', async (req, res) => {
+app.get('/api/learning-goal', async (req, res) => {
     try {
         const data = await LearningGoal.find({});
         res.json(data);
@@ -115,7 +114,7 @@ app.get('/learning-goal', async (req, res) => {
         res.status(500).send(error);
     }
 });
-app.get('/perfer-learning-way', async (req, res) => {
+app.get('/api/perfer-learning-way', async (req, res) => {
     try {
         const data = await PreferLearningWay.find({});
         res.json(data);
@@ -123,7 +122,7 @@ app.get('/perfer-learning-way', async (req, res) => {
         res.status(500).send(error);
     }
 });
-app.post('/form', async (req, res) => {
+app.post('/api/form', async (req, res) => {
     try {
         // 收到的資料
         const member = new Member(req.body);
